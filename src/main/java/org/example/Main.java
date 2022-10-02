@@ -28,7 +28,6 @@ public class Main {
         Vehicle vehicle2 = new Vehicle("Mh13", VehicleType.CAR);
         ParkingTicket ticket2 = parkingLot.park(vehicle2);
         System.out.println(ticket2);
-        Date c2;
         Calendar cal2 = Calendar.getInstance();
         cal2.set(2022,8,28,13,52,23);
         ticket2.setDate(cal2.getTime());
@@ -50,9 +49,6 @@ public class Main {
 
         double cost2 = parkingLot.removeVehicle(ticket2);
         System.out.println(cost2);
-
-
-
 
 
     }

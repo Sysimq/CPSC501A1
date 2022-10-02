@@ -46,7 +46,7 @@ public class ParkingLot {
         return true;
     }
 
-    public ParkingTicket park(Vehicle vehicle){
+    public ParkingTicket park(Vehicle vehicle) {
         ParkingSlot nextAvailableSlot;
         if (vehicle.getVehicleType().equals(VehicleType.CAR)) {
             nextAvailableSlot = getNextAvailableCarSlot();
@@ -70,7 +70,7 @@ public class ParkingLot {
         return null;
     }
 
-    private ParkingSlot getNextAvailableMotorBikeSlot(){
+    public ParkingSlot getNextAvailableMotorBikeSlot(){
         for (ParkingSlot slot : motorBikeSlots) {
             if (slot.isEmpty()) {
                 return slot;
@@ -122,14 +122,14 @@ public class ParkingLot {
     }
 
 
-    private int getHoursParked(Date startDate, Date endDate) {
+    public int getHoursParked(Date startDate, Date endDate) {
         long secs = (endDate.getTime() - startDate.getTime()) / 1000;
         int hours = (int) (secs / 3600);
         return hours;
     }
 
 
-    private ParkingSlot getCarSlotByVehicleNumber(String vehicleNumber){
+    public ParkingSlot getCarSlotByVehicleNumber(String vehicleNumber){
         for (ParkingSlot slot : carSlots) {
             Vehicle vehicle = slot.getParkVehicle();
             if (vehicle != null && vehicle.getVehicleNumber().equals(vehicleNumber)) {
@@ -140,7 +140,7 @@ public class ParkingLot {
         return null;
     }
 
-    private ParkingSlot getMotorBikeSlotByVehicleNumber(String vehicleNumber) {
+    public ParkingSlot getMotorBikeSlotByVehicleNumber(String vehicleNumber) {
         for (ParkingSlot slot : motorBikeSlots) {
             Vehicle vehicle = slot.getParkVehicle();
             if (vehicle != null && vehicle.getVehicleNumber().equals(vehicleNumber)) {
