@@ -79,7 +79,7 @@ public class ParkingLot {
 
     public double removeVehicle(ParkingTicket ticket) throws InvalidVehicleNumberException{
         ParkingSlot slot;
-        double parkingCost = 0;
+        double parkingCost;
         try {
             if (ticket.getVehicleType().equals(VehicleType.CAR)) {
                 slot = getCarSlotByVehicleNumber(ticket.getVehicleNumber());
@@ -88,26 +88,7 @@ public class ParkingLot {
             }
             slot.removeVehicleSlot();
             int hours = getHoursParked(ticket.getDate(), new Date());
-            switch (ticket.getVehicleType()) {
-                case CAR:
-                    parkingCost += 5;
-                    if (hours > 1) {
-                        parkingCost += (hours - 1) * 3;
-                    }
-                    if (hours > 48 ){
-                        parkingCost -= (hours/48) * 20;
-                    }
-                    break;
-                case MOTORBIKE:
-                    parkingCost += 3;
-                    if (hours > 1) {
-                        parkingCost += (hours - 1) * 2;
-                    }
-                    if (hours > 48 ){
-                        parkingCost -= (hours/48) * 18;
-                    }
-                    break;
-            }
+            parkingCost = ticket.getChargeStrategy().getParkingCharge(hours);
             System.out.println(
                     "Vehicle with registration " + ticket.getVehicleNumber() + " at slot number " + slot.getSlotNumber()
                             + " was parked for " + hours + " hours and the total charge is " + parkingCost);
