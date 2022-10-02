@@ -46,7 +46,7 @@ public class ParkingLot {
         return true;
     }
 
-    public ParkingTicket park(Vehicle vehicle) {
+    public ParkingTicket park(Vehicle vehicle) throws ParkingFullException {
         ParkingSlot nextAvailableSlot;
         if (vehicle.getVehicleType().equals(VehicleType.CAR)) {
             nextAvailableSlot = getNextAvailableCarSlot();
@@ -60,24 +60,21 @@ public class ParkingLot {
         return ticket;
     }
 
-    private ParkingSlot getNextAvailableCarSlot() {
+    private ParkingSlot getNextAvailableCarSlot() throws ParkingFullException {
         for (ParkingSlot slot : carSlots) {
             if (slot.isEmpty()) {
                 return slot;
             }
         }
-        System.out.println("No Empty Car Slot available");
-        return null;
+        throw new ParkingFullException("No Empty Car Slot available");
     }
 
-    public ParkingSlot getNextAvailableMotorBikeSlot(){
+    public ParkingSlot getNextAvailableMotorBikeSlot() throws ParkingFullException{
         for (ParkingSlot slot : motorBikeSlots) {
             if (slot.isEmpty()) {
                 return slot;
             }
-        }
-        System.out.println("No Empty MotorBike Slot available");
-        return null;
+        }throw new ParkingFullException("No Empty MotorBike Slot available");
     }
 
     public double removeVehicle(ParkingTicket ticket) {

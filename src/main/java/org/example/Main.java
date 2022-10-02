@@ -4,7 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParkingFullException {
         ParkingLot parkingLot = ParkingLot.getParkingLot();
 
         parkingLot.initializeParkingSlots(10, 10);
