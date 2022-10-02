@@ -77,8 +77,9 @@ public class ParkingLot {
         }throw new ParkingFullException("No Empty MotorBike Slot available");
     }
 
-    public double removeVehicle(ParkingTicket ticket) {
+    public double removeVehicle(ParkingTicket ticket) throws InvalidVehicleNumberException{
         ParkingSlot slot;
+        double parkingCost = 0;
         try {
             if (ticket.getVehicleType().equals(VehicleType.CAR)) {
                 slot = getCarSlotByVehicleNumber(ticket.getVehicleNumber());
@@ -87,7 +88,6 @@ public class ParkingLot {
             }
             slot.removeVehicleSlot();
             int hours = getHoursParked(ticket.getDate(), new Date());
-            double parkingCost = 0;
             switch (ticket.getVehicleType()) {
                 case CAR:
                     parkingCost += 5;
@@ -111,11 +111,11 @@ public class ParkingLot {
             System.out.println(
                     "Vehicle with registration " + ticket.getVehicleNumber() + " at slot number " + slot.getSlotNumber()
                             + " was parked for " + hours + " hours and the total charge is " + parkingCost);
-            return parkingCost;
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (InvalidVehicleNumberException invalidVehicleNumber) {
+            System.out.println(invalidVehicleNumber.getMessage());
+            throw invalidVehicleNumber;
         }
+        return parkingCost;
     }
 
 
@@ -126,18 +126,17 @@ public class ParkingLot {
     }
 
 
-    public ParkingSlot getCarSlotByVehicleNumber(String vehicleNumber){
+    public ParkingSlot getCarSlotByVehicleNumber(String vehicleNumber)throws InvalidVehicleNumberException{
         for (ParkingSlot slot : carSlots) {
             Vehicle vehicle = slot.getParkVehicle();
             if (vehicle != null && vehicle.getVehicleNumber().equals(vehicleNumber)) {
                 return slot;
             }
         }
-        System.out.println("Car with registration number " + vehicleNumber + " not found");
-        return null;
+        throw new InvalidVehicleNumberException("Car with registration number " + vehicleNumber + " not found");
     }
 
-    public ParkingSlot getMotorBikeSlotByVehicleNumber(String vehicleNumber) {
+    public ParkingSlot getMotorBikeSlotByVehicleNumber(String vehicleNumber) throws InvalidVehicleNumberException {
         for (ParkingSlot slot : motorBikeSlots) {
             Vehicle vehicle = slot.getParkVehicle();
             if (vehicle != null && vehicle.getVehicleNumber().equals(vehicleNumber)) {
@@ -145,8 +144,7 @@ public class ParkingLot {
             }
 
         }
-        System.out.println("MotorBike with registration number " + vehicleNumber + " not found");
-        return null;
+        throw new InvalidVehicleNumberException("MotorBike with registration number " + vehicleNumber + " not found");
     }
 
 
