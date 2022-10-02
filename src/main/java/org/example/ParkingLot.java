@@ -11,6 +11,14 @@ public class ParkingLot {
     private final List<ParkingSlot> motorBikeSlots;
     private final List<ParkingSlot> carSlots;
 
+    public List<ParkingSlot> getMotorBikeSlots() {
+        return motorBikeSlots;
+    }
+
+    public List<ParkingSlot> getCarSlots() {
+        return carSlots;
+    }
+
     private ParkingLot() {
         this.motorBikeSlots = new ArrayList<>();
         this.carSlots = new ArrayList<>();
