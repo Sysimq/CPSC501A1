@@ -32,17 +32,24 @@ public class ParkingLot {
 
     public boolean initializeParkingSlots(int numberOfMotorBikeParkingSlots, int numberOfCarParkingSlots) {
 
-        for (int i = 1; i <= numberOfMotorBikeParkingSlots; i++) {
+       initializeMotorBikeSlots(numberOfMotorBikeParkingSlots,motorBikeSlots);
+       initializeCarSlots(numberOfCarParkingSlots,carSlots);
+       return true;
+    }
+
+    public void initializeMotorBikeSlots(int numOfSlots, List<MotorBikeSlot> motorBikeSlots){
+        for (int i = 1; i <= numOfSlots; i++) {
             motorBikeSlots.add(new MotorBikeSlot(i));
         }
-        System.out.printf("Created a motorbike parking lot with %s slots %n", numberOfMotorBikeParkingSlots);
-
-        for (int i = 1; i <= numberOfCarParkingSlots; i++) {
+        System.out.printf("Created a motorbike parking lot with %s slots %n", numOfSlots);
+    }
+    public void initializeCarSlots(int numOfSlots, List<CarSlot> carSlots){
+        for (int i = 1; i <= numOfSlots; i++) {
             carSlots.add(new CarSlot(i));
         }
-        System.out.printf("Created a car parking lot with %s slots %n", numberOfCarParkingSlots);
-        return true;
+        System.out.printf("Created a car parking lot with %s slots %n", numOfSlots);
     }
+
 
     public ParkingTicket park(Vehicle vehicle) throws ParkingFullException {
         ParkingSlot nextAvailableSlot;
