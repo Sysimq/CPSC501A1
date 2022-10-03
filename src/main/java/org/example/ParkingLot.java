@@ -79,7 +79,7 @@ public class ParkingLot {
         ParkingSlot slot;
         double parkingCost;
         try {
-            if (ticket.getVehicleType().equals(VehicleType.CAR)) {
+            if (ticket.getSlotType().equals(ParkingSlotType.CARSLOT)) {
                 slot = getCarSlotByVehicleNumber(ticket.getVehicleNumber());
             } else {
                 slot = getMotorBikeSlotByVehicleNumber(ticket.getVehicleNumber());
