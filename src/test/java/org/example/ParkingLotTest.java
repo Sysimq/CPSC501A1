@@ -13,34 +13,35 @@ class ParkingLotTest {
 
     @Test
     void initializeParkingSlots() {
-        ParkingLot parkingLot = ParkingLot.getParkingLot();
-        parkingLot.initializeParkingSlots(10, 10);
-        assertTrue(parkingLot.initializeParkingSlots(10,10));
+        ParkingLot parkingLot1 = ParkingLot.getParkingLot();
+        parkingLot1.initializeParkingSlots(10, 10);
+        assertTrue(parkingLot1.initializeParkingSlots(10,10));
     }
     @Test
     void parkingLotCarSlotNumber() {
-        ParkingLot parkingLot = ParkingLot.getParkingLot();
+        ParkingLot parkingLot = new ParkingLot();
         parkingLot.initializeParkingSlots(10, 10);
         assertEquals(10,parkingLot.getCarSlots().size());
+
     }
     @Test
     void parkingLotMotorBikeSlotNumber() {
-        ParkingLot parkingLot = ParkingLot.getParkingLot();
+        ParkingLot parkingLot = new ParkingLot();
         parkingLot.initializeParkingSlots(10, 10);
         assertEquals(10,parkingLot.getMotorBikeSlots().size());
     }
 
     @Test
     void parkVehicleNumber() throws ParkingFullException {
-        ParkingLot parkingLot = ParkingLot.getParkingLot();
-        parkingLot.initializeParkingSlots(2, 2);
+        ParkingLot parkingLot4 = ParkingLot.getParkingLot();
+        parkingLot4.initializeParkingSlots(2, 2);
         Vehicle vehicle = new Vehicle("Mh12", VehicleType.MOTORBIKE);
-        ParkingTicket ticket = parkingLot.park(vehicle);
+        ParkingTicket ticket = parkingLot4.park(vehicle);
         assertEquals("Mh12",ticket.getVehicleNumber());
     }
     @Test
     void parkVehicleNumber2() throws ParkingFullException {
-        ParkingLot parkingLot = ParkingLot.getParkingLot();
+        ParkingLot parkingLot = new ParkingLot();
         parkingLot.initializeParkingSlots(2, 2);
         Vehicle vehicle = new Vehicle("Mh13", VehicleType.CAR);
         ParkingTicket ticket = parkingLot.park(vehicle);
@@ -48,7 +49,7 @@ class ParkingLotTest {
     }
     @Test
     void parkSlotNumber1() throws ParkingFullException, InvalidVehicleNumberException {
-        ParkingLot parkingLot = ParkingLot.getParkingLot();
+        ParkingLot parkingLot = new ParkingLot();
         parkingLot.initializeParkingSlots(2, 2);
         Vehicle vehicle = new Vehicle("Mh13", VehicleType.CAR);
         ParkingTicket ticket = parkingLot.park(vehicle);
@@ -56,7 +57,7 @@ class ParkingLotTest {
     }
     @Test
     void parkSlotNumber2() throws ParkingFullException, InvalidVehicleNumberException {
-        ParkingLot parkingLot = ParkingLot.getParkingLot();
+        ParkingLot parkingLot = new ParkingLot();
         parkingLot.initializeParkingSlots(2, 2);
         Vehicle vehicle = new Vehicle("Mh13", VehicleType.MOTORBIKE);
         ParkingTicket ticket = parkingLot.park(vehicle);
@@ -64,19 +65,19 @@ class ParkingLotTest {
     }
     @Test
     void parkSlotNumber3() throws ParkingFullException, InvalidVehicleNumberException {
-        ParkingLot parkingLot = ParkingLot.getParkingLot();
+        ParkingLot parkingLot = new ParkingLot();
         parkingLot.initializeParkingSlots(2, 2);
-        Vehicle vehicle = new Vehicle("Mh13", VehicleType.MOTORBIKE);
+        Vehicle vehicle = new Vehicle("AB13", VehicleType.MOTORBIKE);
         parkingLot.park(vehicle);
-        Vehicle vehicle2 = new Vehicle("Mh14", VehicleType.MOTORBIKE);
+        Vehicle vehicle2 = new Vehicle("AB14", VehicleType.MOTORBIKE);
         parkingLot.park(vehicle2);
-        assertEquals(2,parkingLot.getMotorBikeSlotByVehicleNumber("Mh14").getSlotNumber());
+        assertEquals(2,parkingLot.getMotorBikeSlotByVehicleNumber("AB14").getSlotNumber());
     }
 
     @Test
     void fullParkingLotExceptionTest() throws ParkingFullException {
         Exception exception = assertThrows(ParkingFullException.class, () ->{
-            ParkingLot parkingLot = ParkingLot.getParkingLot();
+            ParkingLot parkingLot = new ParkingLot();
             parkingLot.initializeParkingSlots(1, 1);
             Vehicle vehicle = new Vehicle("Mh12", VehicleType.MOTORBIKE);
             ParkingTicket ticket = parkingLot.park(vehicle);
@@ -93,7 +94,7 @@ class ParkingLotTest {
     @Test
     void invalidVehicleNumberExceptionTest() throws InvalidVehicleNumberException {
         Exception exception = assertThrows(InvalidVehicleNumberException.class, () ->{
-            ParkingLot parkingLot = ParkingLot.getParkingLot();
+            ParkingLot parkingLot = new ParkingLot();
             parkingLot.initializeParkingSlots(2, 2);
             Vehicle vehicle = new Vehicle("CD1", VehicleType.MOTORBIKE);
             parkingLot.park(vehicle);
@@ -107,7 +108,7 @@ class ParkingLotTest {
 
     @Test
     void removeMotorBikeParkedLessThan1hour() throws ParkingFullException, InvalidVehicleNumberException {
-        ParkingLot parkingLot = ParkingLot.getParkingLot();
+        ParkingLot parkingLot = new ParkingLot();
         parkingLot.initializeParkingSlots(1, 1);
         Vehicle vehicle = new Vehicle("Mh12", VehicleType.MOTORBIKE);
         ParkingTicket ticket = parkingLot.park(vehicle);
@@ -116,7 +117,7 @@ class ParkingLotTest {
     }
     @Test
     void removeMotorBikeParkedMoreThan1hour() throws ParkingFullException, InvalidVehicleNumberException {
-        ParkingLot parkingLot = ParkingLot.getParkingLot();
+        ParkingLot parkingLot = new ParkingLot();
         parkingLot.initializeParkingSlots(1, 1);
         Vehicle vehicle = new Vehicle("Mh12", VehicleType.MOTORBIKE);
         ParkingTicket ticket = parkingLot.park(vehicle);
@@ -128,7 +129,7 @@ class ParkingLotTest {
     }
     @Test
     void removeMotorBikeParkedMoreThan48hours() throws ParkingFullException, InvalidVehicleNumberException {
-        ParkingLot parkingLot = ParkingLot.getParkingLot();
+        ParkingLot parkingLot = new ParkingLot();
         parkingLot.initializeParkingSlots(1, 1);
         Vehicle vehicle = new Vehicle("Mh12", VehicleType.MOTORBIKE);
         ParkingTicket ticket = parkingLot.park(vehicle);
@@ -140,7 +141,7 @@ class ParkingLotTest {
     }
     @Test
     void removeCarParkedLessThan1hour() throws ParkingFullException, InvalidVehicleNumberException {
-        ParkingLot parkingLot = ParkingLot.getParkingLot();
+        ParkingLot parkingLot = new ParkingLot();
         parkingLot.initializeParkingSlots(1, 1);
         Vehicle vehicle = new Vehicle("AB1", VehicleType.CAR);
         ParkingTicket ticket = parkingLot.park(vehicle);
@@ -149,7 +150,7 @@ class ParkingLotTest {
     }
     @Test
     void removeCarParkedMoreThan1hour() throws ParkingFullException, InvalidVehicleNumberException {
-        ParkingLot parkingLot = ParkingLot.getParkingLot();
+        ParkingLot parkingLot = new ParkingLot();
         parkingLot.initializeParkingSlots(1, 1);
         Vehicle vehicle = new Vehicle("AB1", VehicleType.CAR);
         ParkingTicket ticket = parkingLot.park(vehicle);
@@ -161,7 +162,7 @@ class ParkingLotTest {
     }
     @Test
     void removeCarParkedMoreThan48hours() throws ParkingFullException, InvalidVehicleNumberException {
-        ParkingLot parkingLot = ParkingLot.getParkingLot();
+        ParkingLot parkingLot = new ParkingLot();
         parkingLot.initializeParkingSlots(1, 1);
         Vehicle vehicle = new Vehicle("AB1", VehicleType.CAR);
         ParkingTicket ticket = parkingLot.park(vehicle);

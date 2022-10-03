@@ -8,15 +8,19 @@ public class ParkingTicket {
     private VehicleType vehicleType;
     private ParkingCharge chargeStrategy;
 
+    private final ParkingSlotType slotType;
 
-    public ParkingTicket(int slotNumber, String vehicleNumber, VehicleType vehicleType, Date date) {
+
+
+    public ParkingTicket(int slotNumber, String vehicleNumber, VehicleType vehicleType, ParkingSlotType slotType, Date date) {
         super();
         this.slotNumber = slotNumber;
         this.vehicleNumber = vehicleNumber;
+        this.slotType = slotType;
         this.setVehicleType(vehicleType);
-        if(this.vehicleType==VehicleType.CAR){
+        if(this.slotType==ParkingSlotType.CARSLOT){
             this.chargeStrategy = new CarParkingCharge();
-        } else if (this.vehicleType == vehicleType.MOTORBIKE) {
+        } else if (this.slotType == ParkingSlotType.MOTORBIKESLOT) {
             this.chargeStrategy = new MotorBikeParkingCharge();
         }
         this.date = date;
@@ -56,6 +60,10 @@ public class ParkingTicket {
 
     public ParkingCharge getChargeStrategy() {
         return chargeStrategy;
+    }
+
+    public ParkingSlotType getSlotType() {
+        return slotType;
     }
 
     @Override

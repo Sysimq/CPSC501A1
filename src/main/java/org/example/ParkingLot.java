@@ -1,25 +1,25 @@
 package org.example;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 
 
 public class ParkingLot {
-    private static ParkingLot parkingLot;
+    public static ParkingLot parkingLot;
+    private final List<MotorBikeSlot> motorBikeSlots;
+    private final List<CarSlot> carSlots;
 
-    private final List<ParkingSlot> motorBikeSlots;
-    private final List<ParkingSlot> carSlots;
-
-    public List<ParkingSlot> getMotorBikeSlots() {
+    public List<MotorBikeSlot> getMotorBikeSlots() {
         return motorBikeSlots;
     }
 
-    public List<ParkingSlot> getCarSlots() {
+    public List<CarSlot> getCarSlots() {
         return carSlots;
     }
 
-    private ParkingLot() {
+    public ParkingLot() {
         this.motorBikeSlots = new ArrayList<>();
         this.carSlots = new ArrayList<>();
     }
@@ -33,15 +33,13 @@ public class ParkingLot {
     public boolean initializeParkingSlots(int numberOfMotorBikeParkingSlots, int numberOfCarParkingSlots) {
 
         for (int i = 1; i <= numberOfMotorBikeParkingSlots; i++) {
-            motorBikeSlots.add(new ParkingSlot(i));
+            motorBikeSlots.add(new MotorBikeSlot(i));
         }
-
         System.out.printf("Created a motorbike parking lot with %s slots %n", numberOfMotorBikeParkingSlots);
 
         for (int i = 1; i <= numberOfCarParkingSlots; i++) {
-            carSlots.add(new ParkingSlot(i));
+            carSlots.add(new CarSlot(i));
         }
-
         System.out.printf("Created a car parking lot with %s slots %n", numberOfCarParkingSlots);
         return true;
     }
@@ -56,12 +54,12 @@ public class ParkingLot {
         nextAvailableSlot.placeVehicleSlot(vehicle);
         System.out.printf("Allocated slot number: %d \n", nextAvailableSlot.getSlotNumber());
         ParkingTicket ticket = new ParkingTicket(nextAvailableSlot.getSlotNumber(), vehicle.getVehicleNumber(),
-                vehicle.getVehicleType(), new Date());
+                vehicle.getVehicleType(), nextAvailableSlot.getSlotType(), new Date());
         return ticket;
     }
 
-    private ParkingSlot getNextAvailableCarSlot() throws ParkingFullException {
-        for (ParkingSlot slot : carSlots) {
+    private CarSlot getNextAvailableCarSlot() throws ParkingFullException {
+        for (CarSlot slot : carSlots) {
             if (slot.isEmpty()) {
                 return slot;
             }
@@ -69,8 +67,8 @@ public class ParkingLot {
         throw new ParkingFullException("No Empty Car Slot available");
     }
 
-    public ParkingSlot getNextAvailableMotorBikeSlot() throws ParkingFullException{
-        for (ParkingSlot slot : motorBikeSlots) {
+    public MotorBikeSlot getNextAvailableMotorBikeSlot() throws ParkingFullException{
+        for (MotorBikeSlot slot : motorBikeSlots) {
             if (slot.isEmpty()) {
                 return slot;
             }
@@ -92,10 +90,10 @@ public class ParkingLot {
             System.out.println(
                     "Vehicle with registration " + ticket.getVehicleNumber() + " at slot number " + slot.getSlotNumber()
                             + " was parked for " + hours + " hours and the total charge is " + parkingCost);
-        } catch (InvalidVehicleNumberException invalidVehicleNumber) {
+        }catch (InvalidVehicleNumberException invalidVehicleNumber) {
             System.out.println(invalidVehicleNumber.getMessage());
             throw invalidVehicleNumber;
-        }
+            }
         return parkingCost;
     }
 
@@ -107,8 +105,8 @@ public class ParkingLot {
     }
 
 
-    public ParkingSlot getCarSlotByVehicleNumber(String vehicleNumber)throws InvalidVehicleNumberException{
-        for (ParkingSlot slot : carSlots) {
+    public CarSlot getCarSlotByVehicleNumber(String vehicleNumber)throws InvalidVehicleNumberException{
+        for (CarSlot slot : carSlots) {
             Vehicle vehicle = slot.getParkVehicle();
             if (vehicle != null && vehicle.getVehicleNumber().equals(vehicleNumber)) {
                 return slot;
@@ -117,8 +115,8 @@ public class ParkingLot {
         throw new InvalidVehicleNumberException("Car with registration number " + vehicleNumber + " not found");
     }
 
-    public ParkingSlot getMotorBikeSlotByVehicleNumber(String vehicleNumber) throws InvalidVehicleNumberException {
-        for (ParkingSlot slot : motorBikeSlots) {
+    public MotorBikeSlot getMotorBikeSlotByVehicleNumber(String vehicleNumber) throws InvalidVehicleNumberException {
+        for (MotorBikeSlot slot : motorBikeSlots) {
             Vehicle vehicle = slot.getParkVehicle();
             if (vehicle != null && vehicle.getVehicleNumber().equals(vehicleNumber)) {
                 return slot;

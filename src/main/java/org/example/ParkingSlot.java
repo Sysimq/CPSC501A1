@@ -1,13 +1,15 @@
 package org.example;
 
-public class ParkingSlot {
+public abstract class ParkingSlot {
     private int slotNumber;
     private boolean isEmpty;
     private Vehicle parkVehicle;
+    private final ParkingSlotType slotType;
 
-    public ParkingSlot(int slotNumber) {
+    public ParkingSlot(int slotNumber, ParkingSlotType slotType) {
         this.slotNumber = slotNumber;
         isEmpty = true;
+        this.slotType = slotType;
     }
 
     public int getSlotNumber() {
@@ -36,6 +38,10 @@ public class ParkingSlot {
     public void removeVehicleSlot() {
         parkVehicle = null;
         this.isEmpty = true;
+    }
+
+    public ParkingSlotType getSlotType() {
+        return slotType;
     }
 
     public void placeVehicleSlot(Vehicle parkVehicle) {
