@@ -8,8 +8,9 @@ public abstract class ParkingSlot {
 
     public ParkingSlot(int slotNumber, ParkingSlotType slotType) {
         this.slotNumber = slotNumber;
-        isEmpty = true;
         this.slotType = slotType;
+        isEmpty = true;
+
     }
 
     public int getSlotNumber() {

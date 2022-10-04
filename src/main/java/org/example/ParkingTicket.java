@@ -10,23 +10,21 @@ public class ParkingTicket {
 
     private final ParkingSlotType slotType;
 
-
-
+    //Parking Ticket Constructor
     public ParkingTicket(int slotNumber, String vehicleNumber, VehicleType vehicleType, ParkingSlotType slotType, Date date) {
         super();
         this.slotNumber = slotNumber;
         this.vehicleNumber = vehicleNumber;
         this.slotType = slotType;
         this.setVehicleType(vehicleType);
+        // Set Charge Strategy depending on Parking Slot taken
         if(this.slotType==ParkingSlotType.CARSLOT){
             this.chargeStrategy = new CarParkingCharge();
         } else if (this.slotType == ParkingSlotType.MOTORBIKESLOT) {
             this.chargeStrategy = new MotorBikeParkingCharge();
         }
         this.date = date;
-
     }
-
     public Date getDate() {
         return date;
     }
