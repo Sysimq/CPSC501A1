@@ -1,6 +1,5 @@
 package org.example;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -66,7 +65,7 @@ public class ParkingLot {
      * @return Parking Ticket
      * @throws ParkingFullException
      */
-    public ParkingTicket park(Vehicle vehicle) throws ParkingFullException {
+    public ParkingTicket parkVehicleInParkingLot(Vehicle vehicle) throws ParkingFullException {
         ParkingSlot nextAvailableSlot;
         if (vehicle.getVehicleType().equals(VehicleType.CAR)) {
             // get next Available Empty Parking Slot
@@ -75,7 +74,7 @@ public class ParkingLot {
             nextAvailableSlot = getNextAvailableMotorBikeSlot();
         }
         // Place Vehicle in Next Available Empty Slot
-        nextAvailableSlot.placeVehicleSlot(vehicle);
+        nextAvailableSlot.placeVehicleInParkingSlot(vehicle);
         System.out.printf("Allocated slot number: %d \n", nextAvailableSlot.getSlotNumber());
         ParkingTicket ticket = new ParkingTicket(nextAvailableSlot.getSlotNumber(), vehicle.getVehicleNumber(),
                 vehicle.getVehicleType(), nextAvailableSlot.getSlotType(), new Date());
@@ -104,7 +103,7 @@ public class ParkingLot {
      * @return Parking Cost
      * @throws InvalidVehicleNumberException
      */
-    public double removeVehicle(ParkingTicket ticket) throws InvalidVehicleNumberException{
+    public double removeVehicleFromParkingLot(ParkingTicket ticket) throws InvalidVehicleNumberException{
         ParkingSlot slot;
         double parkingCost;
         try {
@@ -114,7 +113,7 @@ public class ParkingLot {
                 slot = getMotorBikeSlotByVehicleNumber(ticket.getVehicleNumber());
             }
             //remove vehicle from parking slot
-            slot.removeVehicleSlot();
+            slot.removeVehicleFromParkingSlot();
             //get parked hour
             int hours = getHoursParked(ticket.getDate(), new Date());
             //calculate parking cost depending on parking cost strategy

@@ -36,7 +36,7 @@ public abstract class ParkingSlot {
         this.parkVehicle = parkVehicle;
     }
 
-    public void removeVehicleSlot() {
+    public void removeVehicleFromParkingSlot() {
         parkVehicle = null;
         this.isEmpty = true;
     }
@@ -45,7 +45,7 @@ public abstract class ParkingSlot {
         return slotType;
     }
 
-    public void placeVehicleSlot(Vehicle parkVehicle) {
+    public void placeVehicleInParkingSlot(Vehicle parkVehicle) {
         this.parkVehicle = parkVehicle;
         this.isEmpty = false;
     }

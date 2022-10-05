@@ -11,7 +11,7 @@ public class Main {
 
         Vehicle vehicle = new Vehicle("Mh12", VehicleType.MOTORBIKE);
 
-        ParkingTicket ticket = parkingLot.park(vehicle);
+        ParkingTicket ticket = parkingLot.parkVehicleInParkingLot(vehicle);
         System.out.println(ticket);
         Date c1;
         Calendar cal = Calendar.getInstance();
@@ -26,7 +26,7 @@ public class Main {
         System.out.println(ticket);
 
         Vehicle vehicle2 = new Vehicle("Mh13", VehicleType.CAR);
-        ParkingTicket ticket2 = parkingLot.park(vehicle2);
+        ParkingTicket ticket2 = parkingLot.parkVehicleInParkingLot(vehicle2);
         System.out.println(ticket2);
         Calendar cal2 = Calendar.getInstance();
         cal2.set(2022,8,28,13,52,23);
@@ -35,19 +35,19 @@ public class Main {
 
 
         Vehicle vehicle3 = new Vehicle("Mh15", VehicleType.CAR);
-        ParkingTicket ticket3 = parkingLot.park(vehicle3);
+        ParkingTicket ticket3 = parkingLot.parkVehicleInParkingLot(vehicle3);
         System.out.println(ticket3);
 
         Vehicle vehicle4 = new Vehicle("Mh17", VehicleType.MOTORBIKE);
 
 
-        ParkingTicket ticket4 = parkingLot.park(vehicle4);
+        ParkingTicket ticket4 = parkingLot.parkVehicleInParkingLot(vehicle4);
         System.out.println(ticket4);
 
-        double cost1 = parkingLot.removeVehicle(ticket);
+        double cost1 = parkingLot.removeVehicleFromParkingLot(ticket);
         System.out.println(cost1);
 
-        double cost2 = parkingLot.removeVehicle(ticket2);
+        double cost2 = parkingLot.removeVehicleFromParkingLot(ticket2);
         System.out.println(cost2);
 
 
