@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) throws ParkingFullException, InvalidVehicleNumberException{
         ParkingLot parkingLot = ParkingLot.getParkingLot();
 
-        parkingLot.initializeParkingSlots(10, 10);
+        parkingLot.initializeParkingSlots(1, 1);
 
         Vehicle vehicle = new Vehicle("Mh12", VehicleType.MOTORBIKE);
 
